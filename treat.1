@@ -1,0 +1,33 @@
+.TH TREAT 1
+.SH NAME
+treat \- run different fields of the input through different filters
+
+.SH SYNOPSIS
+program [-i INPUTSEP] [-o OUTPUTSEP] [FILTERS]
+
+.SH DESCRIPTION
+treat runs different input fields, separated by INPUTSEP, through
+different text filters specified by the user. The nth field is run through
+the nth filter specified. If no filter is specified for a field, the field
+is run through cat(1). The resulting fields are printed, separated by OUTPUTSEP.
+The default values for INPUTSEP and OUTPUTSEP are '[ \t]'.
+Without any arguments, treat behaves like cat.
+
+.SH EXAMPLE
+.TP
+.B du -a | treat 'human' 'xargs basename'
+print human readable sizes of the different files in the directory tree.
+.TP
+.B history | treat 'cat' 'sed "s/foo/bar"' 'awk "{ print length() }"'
+Substitute foo with bar in the second field and print the length of the third field.
+
+.SH STATUS
+0 on success and 1 when it prints the help message.
+
+.SH BUGS
+The code probably sucks.
+.TP
+It does not work.
+
+.SH AUTHOR
+a.regenfuss@gmx.de
