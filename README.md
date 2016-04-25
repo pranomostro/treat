@@ -57,7 +57,7 @@ such as the existing factor(1) and human(1), like for example a program that
 just prints the hashsum of it's line or something like that.
 I don't know. Think for yourself one single time.
 
-Okay, looks quite-acceptable, how do I install it?
+Okay, looks quite - well, acceptable, how do I install it?
 --------------------------------------------------
 
 	make install
