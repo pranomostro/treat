@@ -10,8 +10,8 @@ end
 
 while line~=nil do
 	for i=1, #arg-1 do
-		fields[i]=line=="" and "" or string.match(line, "^([^ ]+) ?")
-		line=string.gsub(line, "^[^ ]+ ?", "")
+		fields[i]=line=="" and "" or string.match(line, "^([^ 	]*)[ 	]?")
+		line=string.gsub(line, "^[^ 	]*[ 	]?", "")
 	end
 	fields[#arg]=line
 	for i=1, #fields do
