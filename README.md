@@ -4,7 +4,7 @@ Running different fields through different filters
 I'm not gonna read all of this
 ------------------------------
 
-TL; DR: requires the plan 9 shell [rc](git.suckless.org/9base), lua and a posixy environment,
+TL; DR: requires the plan 9 shell [rc](http://git.suckless.org/9base), lua and a posixy environment,
 `make install` for installing and `make uninstall` for uninstalling,
 more information in the man-page.
 
@@ -20,7 +20,7 @@ in human-readable formats.
 What if I told you that this option is unneeded?
 
 You can emulate it with the following command
-(assuming you have z3bras awesome utility [human(1)](git.z3bra.org/human/log.html) installed):
+(assuming you have z3bras awesome utility [human(1)](http://git.z3bra.org/human/log.html) installed):
 
 	du -b | treat 'human'
 
@@ -62,7 +62,7 @@ Okay, looks quite-acceptable, how do I install it?
 
 	make install
 
-At the moment, you need the plan 9 shell [rc](git.suckless.org/9base) and lua for this.
+At the moment, you need the plan 9 shell [rc](http://git.suckless.org/9base) and lua for this.
 You probably have got mktemp(1), seq(1), mkfifo(1), paste(1), cat(1),
 rm(1) and rmdir(1) already installed.
 
