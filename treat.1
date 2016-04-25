@@ -3,15 +3,12 @@
 treat \- run different fields of the input through different filters
 
 .SH SYNOPSIS
-program [-i INPUTSEP] [-o OUTPUTSEP] [FILTERS]
+program [FILTERS]
 
 .SH DESCRIPTION
-treat runs different input fields, separated by INPUTSEP, through
-different text filters specified by the user. The nth field is run through
-the nth filter specified. If no filter is specified for a field, the field
-is run through cat(1). The resulting fields are printed, separated by OUTPUTSEP.
-The default values for INPUTSEP and OUTPUTSEP are tabulators for output and
-spaces and tabulators for the input.
+treat runs different input fields through different text filters specified by the user.
+The nth field is run through the nth filter specified. If no filter is specified for a
+field, the field is run through cat(1). The resulting fields are pasted together and printed.
 Without any arguments, treat behaves like cat.
 
 .SH EXAMPLE
@@ -29,9 +26,7 @@ Substitute foo with bar in the second field and print the length of the third fi
 0 on success and 1 when it prints the help message.
 
 .SH BUGS
-The code probably sucks.
-.TP
-It does not work.
+None known at the moment.
 
 .SH AUTHOR
 a.regenfuss@gmx.de

@@ -1,0 +1,25 @@
+#!/usr/bin/env lua
+
+fields={}
+files={}
+line=io.read()
+
+for i=1, #arg do
+	files[i]=io.open(arg[i], "w")
+end
+
+while line~=nil do
+	for i=1, #arg-1 do
+		fields[i]=string.match(line, "^([^ ]+)[ ]")
+		line=string.gsub(line, "^[^ ]+[ ]", "")
+	end
+	fields[#arg]=line;
+	for i=1, #arg do
+		files[i]:write(fields[i].."\n")
+	end
+	line=io.read()
+end
+
+for i=1, #files do
+	files[i]:close()
+end
