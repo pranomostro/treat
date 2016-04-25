@@ -14,7 +14,7 @@ while(~ $1 '-'*){
 
 tmpdir=`{mktemp -d '/tmp/treat.XXXXXX'}
 
-fifos=`{seq 1 $#*}
+fifos=`{seq 0 $#*}
 ins=$tmpdir^'/'^'in.'^$fifos
 outs=$tmpdir^'/'^'out.'^$fifos
 
