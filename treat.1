@@ -18,6 +18,10 @@ behave like cat.
 .TP
 .B du -a | treat 'human' 'xargs basename'
 print human readable sizes of the different files in the directory tree.
+Uses the human(1) utility by z3bra.
+.TP
+.B df | sed '1d' | tr -s '\t ' ' ' | treat cat human human human | column -t
+do the same thing as df -h, but by combining programs.
 
 .SH STATUS
 0 on success and 1 when it prints the help message.
