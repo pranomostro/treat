@@ -10,7 +10,8 @@ treat runs different input fields, separated by INPUTSEP, through
 different text filters specified by the user. The nth field is run through
 the nth filter specified. If no filter is specified for a field, the field
 is run through cat(1). The resulting fields are printed, separated by OUTPUTSEP.
-The default values for INPUTSEP and OUTPUTSEP are '[ \t]'.
+The default values for INPUTSEP and OUTPUTSEP are tabulators for output and
+spaces and tabulators for the input.
 Without any arguments, treat behaves like cat.
 
 .SH EXAMPLE

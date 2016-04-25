@@ -1,5 +1,6 @@
 #!/usr/bin/env rc
 
+inputsep=' 	'
 outsep='	'
 
 while(~ $1 '-'*){
