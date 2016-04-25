@@ -22,7 +22,9 @@ mkfifo $ins $outs
 
 paste -d $outsep $outs &
 
-#set up the different filters in the background
+for(i in `{seq 1 $#*})
+	eval '<'$ins($i)' '$*($i)' >'$outs($i)' &'
+
 #call splitup.lua
 
 rm $ins $outs
