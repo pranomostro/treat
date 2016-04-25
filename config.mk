@@ -1,3 +1,3 @@
 PREFIX=/usr/local
 
-TARGET=treat
+TARGET=treat splitup
