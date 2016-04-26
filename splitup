@@ -2,19 +2,34 @@
 
 fields={}
 files={}
-line=io.read()
 
-for i=1, #arg do
-	files[i]=io.open(arg[i], "w")
+sep=" 	" --space and tabulator by default
+
+c=1
+i=1
+
+if arg[1]=="-s" then
+	sep=arg[2]
+	c=3
 end
 
+while c<=#arg do
+	files[i]=io.open(arg[c], "w")
+	i=i+1
+	c=c+1
+end
+
+line=io.read()
+
 while line~=nil do
-	for i=1, #arg-1 do
-		fields[i]=line=="" and "" or string.match(line, "^([^ 	]*)[ 	]?")
-		line=string.gsub(line, "^[^ 	]*[ 	]?", "")
+	for i=1, #files-1 do
+		fields[i]=line=="" and "" or string.match(line, "^([^"..sep.."]*)["..sep.."]?")
+		line=string.gsub(line, "^[^"..sep.."]*["..sep.."]?", "")
 	end
-	fields[#arg]=line
-	for i=1, #fields do
+
+	fields[#files]=line
+
+	for i=1, #files do
 		files[i]:write(fields[i].."\n")
 	end
 	line=io.read()

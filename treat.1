@@ -3,14 +3,15 @@
 treat \- run different fields of the input through different filters
 
 .SH SYNOPSIS
-program [FILTERS]
+program [-i INSEP] [-o OUTSEP] [FILTERS]
 
 .SH DESCRIPTION
 treat runs different input fields through different text filters specified by the user.
 The nth field is run through the nth filter specified. If no filter is specified for a
 field, the field is run through cat(1). The resulting fields are pasted together and
 printed. The input is separated by tabs or spaces, the output is separated
-by tabs.
+by tabs by default, with the options -i and -o one can specify the input- and
+output separator, respectively.
 Without any arguments, treat behaves like cat.
 
 .SH EXAMPLE
