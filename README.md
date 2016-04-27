@@ -49,8 +49,8 @@ Also note that this command has haiku like qualities.
 
 More examples:
 
-	#file calcs with two fields: 1. username, 2. bc code
-	treat cat bc <calcs
+	#file calcs with two fields: 1. username, 2. bc code, separated by colons
+	treat -i : cat bc <calcs
 
 I also hope this encourages the programming of more specific filters,
 such as the existing factor(1) and human(1), like for example a program that
