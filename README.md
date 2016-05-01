@@ -11,6 +11,7 @@ more information in the man-page.
 An image says more than a thousand words
 ----------------------------------------
 
+```
                                      +-----> filter1 (1st input field)+----+
                                      |                                     |
 +-------+     +----------------------+                                    ++----+
@@ -18,6 +19,7 @@ An image says more than a thousand words
 +-------+     +----------------------+                                    ++----+
                                      |                                     |
                                      +-----> filter3 (rest of each line)+--+
+```
 
 The shameless self-promotion
 ----------------------------
