@@ -25,6 +25,12 @@ Uses the human(1) utility by z3bra.
 .TP
 .B df | sed '1d' | tr -s '\t ' ' ' | treat cat human human human | column -t
 do the same thing as df -h, but by combining programs.
+.TP
+echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/\e$/e/'" | tr '\en' '|'
+.TP
+prints
+.TP
+.B ae b|ce d|nghe flbb xq
 
 .SH STATUS
 0 on success and 1 when it prints the help message.
