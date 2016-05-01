@@ -18,7 +18,7 @@ An image says more than a thousand words
 | input |  |  |treat filter1 filter2 +-----> filter2 (2nd input field)+---+paste|
 +-------+     +----------------------+                                    ++----+
                                      |                                     |
-                                     +-----> filter3 (rest of each line)+--+
+                                     +-----> filter3 (cat the rest)+-------+
 ```
 
 The shameless self-promotion
