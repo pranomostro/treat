@@ -8,6 +8,17 @@ TL; DR: requires the plan 9 shell [rc](http://git.suckless.org/9base), lua and a
 `make install` for installing and `make uninstall` for uninstalling,
 more information in the man-page.
 
+An image says more than a thousand words
+----------------------------------------
+
+                                     +-----> filter1 (1st input field)+----+
+                                     |                                     |
++-------+     +----------------------+                                    ++----+
+| input |  |  |treat filter1 filter2 +-----> filter2 (2nd input field)+---+paste|
++-------+     +----------------------+                                    ++----+
+                                     |                                     |
+                                     +-----> filter3 (rest of each line)+--+
+
 The shameless self-promotion
 ----------------------------
 
