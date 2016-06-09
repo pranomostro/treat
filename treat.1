@@ -6,14 +6,14 @@ treat \- run different fields of the input through different filters
 program [-i INSEP] [-o OUTSEP] [FILTERS]
 
 .SH DESCRIPTION
-treat runs different input fields through different text filters specified
-by the user.  The nth field is run through the nth filter specified. If
-no filter is specified for a field, the field is run through cat(1). The
-resulting fields are pasted together and printed. The input is separated
-by spaces, the output is separated by tabs by default, with the options -i
-and -o one can specify the input separator (a lua regular expression) and
-the output separator (argument for paste -d), respectively.  Without any
-arguments, treat behaves like cat.
+treat runs different input fields through different text filters
+specified by the user.  The nth field is run through the nth filter
+specified. If no filter is specified for a field, the field is run through
+cat(1). The resulting fields are pasted together and printed. The input
+is separated by spaces/tabs, the output is separated by tabs by default,
+with the options -i and -o one can specify the input separator (a lua
+regular expression) and the output separator (argument for paste -d),
+respectively.  Without any arguments, treat behaves like cat.
 
 .SH EXAMPLE
 .TP
@@ -32,9 +32,6 @@ echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
 prints
 .TP
 .B ae b|ce d|nghe flbb xq|
-
-.SH STATUS
-0 on success and 1 when it prints the help message.
 
 .SH AUTHOR
 pranomestro@gmail.com
