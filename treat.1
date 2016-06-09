@@ -6,20 +6,21 @@ treat \- run different fields of the input through different filters
 program [-i INSEP] [-o OUTSEP] [FILTERS]
 
 .SH DESCRIPTION
-treat runs different input fields through different text filters specified by the user.
-The nth field is run through the nth filter specified. If no filter is specified for a
-field, the field is run through cat(1). The resulting fields are pasted together and
-printed. The input is separated by tabs or spaces, the output is separated
-by tabs by default, with the options -i and -o one can specify the input- and
-output separator, respectively.
-Without any arguments, treat behaves like cat.
+treat runs different input fields through different text filters specified
+by the user.  The nth field is run through the nth filter specified. If
+no filter is specified for a field, the field is run through cat(1). The
+resulting fields are pasted together and printed. The input is separated
+by spaces, the output is separated by tabs by default, with the options -i
+and -o one can specify the input separator (a lua regular expression) and
+the output separator (argument for paste -d), respectively.  Without any
+arguments, treat behaves like cat.
 
 .SH EXAMPLE
 .TP
 .B treat
 behave like cat.
 .TP
-.B du -a | treat human 'xargs basename'
+.B du -a | treat human 'xargs basename -a'
 print human readable sizes of the different files in the directory tree.
 Uses the human(1) utility by z3bra.
 .TP
@@ -34,10 +35,6 @@ prints
 
 .SH STATUS
 0 on success and 1 when it prints the help message.
-
-.SH BUGS
-treat is not able to handle unicode input separators.
-I am sorry, this will be fixed.
 
 .SH AUTHOR
 pranomestro@gmail.com

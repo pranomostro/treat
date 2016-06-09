@@ -1,6 +1,6 @@
 #!/usr/bin/env rc
 
-insep=' 	'
+insep=' '
 outsep='	'
 
 while(~ $1 '-'*)

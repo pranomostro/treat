@@ -3,15 +3,13 @@
 fields={}
 files={}
 
-sep=" 	" --space and tabulator by default
-
-c=1
-i=1
-
-if arg[1]=="-s" then
-	sep=arg[2]
-	c=3
+if arg[1]~="-s" or #arg<2 then
+	io.stderr:write("splitup -s SEP [FILES]\n")
+	os.exit(1)
 end
+
+sep=arg[2]
+i=1; c=3
 
 while c<=#arg do
 	files[i]=io.open(arg[c], "w")
@@ -23,10 +21,20 @@ line=io.read()
 
 while line~=nil do
 	for i=1, #files-1 do
-		fields[i]=line=="" and "" or string.match(line, "^([^"..sep.."]*)["..sep.."]?")
-		line=string.gsub(line, "^[^"..sep.."]*["..sep.."]?", "")
-	end
+		p1, p2=line:find(sep)
 
+		if p1==nil or p2==nil then
+			if line~="" then
+				fields[i]=line
+				line=""
+			else
+				fields[i]=""
+			end
+		else
+			fields[i]=line:sub(1, p1-1)
+			line=line:gsub("^"..fields[i]..sep, "")
+		end
+	end
 	fields[#files]=line
 
 	for i=1, #files do
