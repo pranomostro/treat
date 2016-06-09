@@ -20,12 +20,9 @@ respectively.  Without any arguments, treat behaves like cat.
 .B treat
 behave like cat.
 .TP
-.B du -a | treat human 'xargs basename -a'
+.B du -ab | treat human 'xargs basename -a'
 print human readable sizes of the different files in the directory tree.
 Uses the human(1) utility by z3bra.
-.TP
-.B df | sed '1d' | tr -s '\t ' ' ' | treat cat human human human | column -t
-do the same thing as df -h, but by combining programs.
 .TP
 echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
 .TP
