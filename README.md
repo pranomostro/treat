@@ -52,14 +52,6 @@ through different text filters, in parallel.
 It runs the nth field of the input through the nth filter specified
 (cat(1) for the fields bigger than n).
 
-But there is more: treat can also make the -h option for df(1) obsolete.
-Here is how I do that:
-
-	df | sed '1d' | tr -s '\t ' ' ' | treat cat human human human | column -t
-
-Nobody needed that stupid first line anyway.
-Also note that this command has haiku like qualities.
-
 More examples:
 
 	#file calcs with two fields: 1. username, 2. bc code, separated by colons
