@@ -19,14 +19,13 @@ outs=$tmpdir^'/'^'out.'^$fifos
 
 mkfifo $ins $outs
 
-paste -d $outsep $outs &
-
 for(i in `{seq 1 $#*})
 	eval '<'$ins($i)' '$*($i)' >'$outs($i)' &'
+
+paste -d $outsep $outs &
 
 cat <$ins($#ins) >$outs($#outs) &
 
 splitup -s $insep $ins
 
-rm $ins $outs
-rmdir $tmpdir
+rm -r $tmpdir
