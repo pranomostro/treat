@@ -24,11 +24,13 @@ behave like cat.
 print human readable sizes of the different files in the directory tree.
 Uses the human(1) utility by z3bra.
 .TP
-echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
-.TP
+.B echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
 prints
 .TP
 .B ae b|ce d|nghe flbb xq|
+.TP
+.B df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }' | treat cat human human human | column -t
+Mimick du -h (without the first line).
 
 .SH BUGS
 Sometimes paste says it didn't find one of the output fifos. They exist,
