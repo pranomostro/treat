@@ -9,15 +9,21 @@ program [-i INSEP] [-o OUTSEP] [FILTERS]
 treat runs different input fields through different text filters
 specified by the user.  The nth field is run through the nth filter
 specified. If no filter is specified for a field, the field is run through
-cat(1). The resulting fields are pasted together and printed. The input
-is separated by spaces/tabs, the output is separated by tabs by default,
-with the options -i and -o one can specify the input separator (a lua
-regular expression) and the output separator (argument for paste -d),
-respectively.  Without any arguments, treat behaves like cat.
+cat(1). The resulting fields are pasted together and printed. Without
+any arguments, treat behaves like cat.
 
-.SH EXAMPLE
+.SH OPTIONS
+.TP
+.BI \-i " INSEP"
+use INSEP as input separator (format lua regex), defaults to tabs/spaces.
+.TP
+.BI \-o " OUTSEP"
+use OUTSEP as output separator (argument for paste -d), defaults to tab.
+
+.SH EXAMPLES
 .TP
 .B treat
+.TP
 behave like cat.
 .TP
 .B du -ab | treat human 'xargs basename -a'
@@ -35,6 +41,12 @@ Mimick du -h (without the first line).
 .SH BUGS
 Sometimes paste says it didn't find one of the output fifos. They exist,
 and I have no idea why this happens. I'm sorry.
+
+.SH "SEE ALSO"
+.IR mkfifo(1),
+.IR paste(1),
+.IR pee(1)
+included in moreutils.
 
 .SH AUTHOR
 pranomestro@gmail.com
