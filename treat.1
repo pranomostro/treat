@@ -29,10 +29,9 @@ behave like cat.
 .B du -ab | treat human 'xargs basename -a'
 print human readable sizes of the different files in the directory tree.
 Uses the human(1) utility by z3bra.
-.TP
+.P
 .B echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
-prints
-.TP
+.br
 .B ae b|ce d|nghe flbb xq|
 .TP
 .B df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }' | treat cat human human human | column -t
