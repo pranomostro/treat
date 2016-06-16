@@ -3,7 +3,7 @@
 fields={}
 files={}
 
-local function esc(x)
+function esc(x)
    return (x:gsub('%%', '%%%%')
             :gsub('^%^', '%%^')
             :gsub('%$$', '%%$')

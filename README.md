@@ -4,8 +4,8 @@ Running different fields through different filters
 I'm not gonna read all of this
 ------------------------------
 
-TL; DR: requires the plan 9 shell [rc](http://git.suckless.org/9base), lua and a posixy environment,
-`make install` for installing and `make uninstall` for uninstalling,
+requires the plan 9 shell [rc](http://git.suckless.org/9base), lua (not terra, fuck you github)
+and a posixy environment, `make install` for installing and `make uninstall` for uninstalling,
 more information in the man-page.
 
 An image says more than a thousand words
@@ -25,10 +25,8 @@ The shameless self-promotion
 ----------------------------
 
 Do you know du(1)?
-It prints the directory tree and the corresponding sizes.
-Pretty simple. And-much more interesting in this case-
-du(1) has an option -h, which means it prints the file sizes
-in human-readable formats.
+It prints the directory tree and the corresponding sizes. Pretty simple. And - much more interesting in this case - 
+du(1) has an option -h, which means it prints the file sizes in human-readable formats.
 
 What if I told you that this option is unneeded?
 
@@ -38,19 +36,17 @@ You can emulate it with the following command
 	du -b | treat 'human'
 
 This is neat, huh? At least, I hope it is.
-And unlike du -h, you can have the whole thing sorted as well:
+And unlike du -h, you can have the whole thing sorted as well (with all files):
 
-	du -b | sort -n | treat human
+	du -ab | sort -n | treat human
 
 This is much harder with du -h. If your sort(1) has an option to
 sort human-readable numbers, it is possible, put that is a hell of an
-assumption to make (HAHA! He said 'ass'!).
+assumption to make.
 
-treat(1) is exactly for that-running different fields of the input
-through different text filters, in parallel.
+treat(1) is exactly for that - running different fields of the input through different text filters, in parallel.
 
-It runs the nth field of the input through the nth filter specified
-(cat(1) for the fields bigger than n).
+It runs the nth field of the input through the nth filter specified (cat(1) for the fields without a specified filter).
 
 More examples:
 
