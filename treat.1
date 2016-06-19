@@ -21,21 +21,37 @@ use INSEP as input separator (format lua regex), defaults to tabs/spaces.
 use OUTSEP as output separator (argument for paste -d), defaults to tab.
 
 .SH EXAMPLES
-.TP
-.B treat
-.TP
-behave like cat.
-.TP
-.B du -ab | treat human 'xargs basename -a'
-print human readable sizes of the different files in the directory tree.
+.PP
+.fi
+.RS
+$ treat
+.RE
+.fi
+behaves like cat.
+.PP
+.fi
+.RS
+$ du -ab | treat human 'xargs basename -a'
+.RE
+.fi
+prints human readable sizes of the different files in the directory tree.
 Uses the human(1) utility by z3bra.
-.P
-.B echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
+.PP
+.fi
+.RS
+$ echo -e 'a b\enc d\engh flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
 .br
-.B ae b|ce d|nghe flbb xq|
-.TP
-.B df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }' | treat cat human human human | column -t
-Mimick du -h (without the first line).
+ae b|ce d|nghe flbb xq|
+.RE
+.fi
+executes sed on only one field.
+.PP
+.fi
+.RS
+df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }' | treat cat human human human | column -t
+.RE
+.fi
+mimicks du -h (without the first line).
 
 .SH BUGS
 Sometimes paste says it didn't find one of the output fifos. They exist,
