@@ -25,7 +25,7 @@ The shameless self-promotion
 ----------------------------
 
 Do you know du(1)?
-It prints the directory tree and the corresponding sizes. Pretty simple. And - much more interesting in this case - 
+It prints the directory tree and the corresponding sizes. Pretty simple. And - much more interesting in this case -
 du(1) has an option -h, which means it prints the file sizes in human-readable formats.
 
 What if I told you that this option is unneeded?
