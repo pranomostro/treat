@@ -54,8 +54,8 @@ df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }'
 mimicks du -h (without the first line).
 
 .SH BUGS
-Sometimes paste says it didn't find one of the output fifos. They exist,
-and I have no idea why this happens. I'm sorry.
+For very subtle reasons, one of the out-fifos is not recognised as a fifo.
+I wrote a test script, didn't show anything useful. It's currently unfixable, sorry.
 
 .SH "SEE ALSO"
 .IR mkfifo(1),
