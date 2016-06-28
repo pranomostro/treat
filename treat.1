@@ -48,7 +48,7 @@ executes sed on only one field.
 .PP
 .fi
 .RS
-df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }' | treat cat human human human | column -t
+$ df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }' | treat cat human human human | column -t
 .RE
 .fi
 mimicks du -h (without the first line).
