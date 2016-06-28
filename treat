@@ -28,4 +28,7 @@ cat <$ins($#ins) >$outs($#outs) &
 
 splitup -s $insep $ins
 
+#process black magic
+wait
+
 rm -r $tmpdir
