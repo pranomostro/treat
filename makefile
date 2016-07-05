@@ -12,3 +12,5 @@ install: $(TARGET)
 uninstall:
 	rm -f $(PREFIX)/share/man/man1/$(TARGET).1
 	cd $(PREFIX)/bin && rm -f $(TARGET)
+
+.PHONY: all install uninstall
