@@ -31,9 +31,10 @@ du(1) has an option -h, which means it prints the file sizes in human-readable f
 What if I told you that this option is unneeded?
 
 You can emulate it with the following command
-(assuming you have z3bras awesome utility [human(1)](http://git.z3bra.org/human/log.html) installed):
+(assuming you have z3bras awesome utility [human(1)](http://git.z3bra.org/human/log.html)
+installed, but you can also use numfmt):
 
-	du -b | treat 'human'
+	du -b | treat human
 
 This is neat, huh? At least, I hope it is.
 And unlike du -h, you can have the whole thing sorted as well (with all files):
