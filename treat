@@ -1,5 +1,13 @@
 #!/usr/bin/env rc
 
+fn die{
+	rm $tmpdir/in.* $tmpdir/out.*
+	rmdir $tmpdir
+	exit 1
+}
+
+fn sigint{ die }; fn sighup{ die }; fn sigalrm{ die }; fn sigfpe{ die }
+
 insep='[	 ]'
 outsep='	'
 
@@ -31,4 +39,5 @@ splitup -s $insep $ins
 #process black magic
 wait
 
-rm -r $tmpdir
+rm $tmpdir/in.* $tmpdir/out.*
+rmdir $tmpdir
