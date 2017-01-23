@@ -76,4 +76,4 @@ No way that I am going to run this on my machine, how do I get rid of it?
 License
 =======
 
-MIT license, more details in ./COPYING.
+MIT license, more details in ./LICENSE.
