@@ -4,7 +4,7 @@ Running different fields through different filters
 I'm not gonna read all of this
 ------------------------------
 
-requires the plan 9 shell [rc](http://git.suckless.org/9base), lua (not terra, fuck you github)
+requires the plan9 shell [rc](http://git.suckless.org/9base), lua (not terra, fuck you github)
 and a posixy environment, `make install` for installing and `make uninstall` for uninstalling,
 more information in the man-page.
 
@@ -64,7 +64,7 @@ Okay, looks quite - well, acceptable, how do I install it?
 
 	make install
 
-At the moment, you need the plan 9 shell [rc](http://git.suckless.org/9base) and lua for this.
+At the moment, you need the plan9 shell [rc](http://git.suckless.org/9base) and lua for this.
 You probably have got mktemp(1), seq(1), mkfifo(1), paste(1), cat(1),
 rm(1) and rmdir(1) already installed.
 
