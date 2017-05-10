@@ -3,7 +3,7 @@
 treat \- run different fields of the input through different filters
 
 .SH SYNOPSIS
-program [-i INSEP] [-o OUTSEP] [FILTERS]
+program [-i insep] [-o outsep] [filters]
 
 .SH DESCRIPTION
 treat runs different input fields through different text filters
@@ -14,11 +14,11 @@ any arguments, treat behaves like cat.
 
 .SH OPTIONS
 .TP
-.BI \-i " INSEP"
+.BI \-i " insep"
 use INSEP as input separator (format lua regex), defaults to tabs/spaces.
 .TP
-.BI \-o " OUTSEP"
-use OUTSEP as output separator (argument for paste -d), defaults to tab.
+.BI \-o " outsep"
+use outsep as output separator (argument for paste -d), defaults to tab.
 
 .SH EXAMPLES
 .PP

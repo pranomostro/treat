@@ -19,7 +19,7 @@ function esc(x)
 end
 
 if arg[1]~="-s" or #arg<2 then
-	io.stderr:write("splitup -s SEP [FILES]\n")
+	io.stderr:write("splitup -s sep [files]\n")
 	os.exit(1)
 end
 
