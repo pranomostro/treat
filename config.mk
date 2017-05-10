@@ -1,3 +1,5 @@
 PREFIX=/usr/local
 
-TARGET=treat splitup
+BIN=splitup treat
+MAN=treat.1
+CONF=config.mk
