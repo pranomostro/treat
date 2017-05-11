@@ -48,7 +48,7 @@ Print human readable sizes of the different files in the directory tree:
 .Pp
 Execute sed on only one field:
 .Pp
-.Dl $ echo -e 'a b\enc d\eng flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
+.Dl $ printf 'a b\enc d\eng flbb xq' | treat -o ' ' "sed 's/$/e/'" | tr '\en' '|'
 .Dl ae b|ce d|nge flbb xq|
 .Pp
 Emulate du -h (without the header line):
