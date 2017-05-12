@@ -20,7 +20,7 @@ Emulate `du -h`:
 
 	du -b | treat human
 
-Emulate `du -abh | sort -h`, but sorted:
+Emulate `du -abh | sort -h`:
 
 	du -ab | sort -n | treat human
 
