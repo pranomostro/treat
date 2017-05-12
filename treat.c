@@ -1,8 +1,10 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #include "arg.h"
 #include "config.h"
@@ -11,7 +13,7 @@ char* argv0;
 
 static void usage(void)
 {
-	fprintf(stderr, "%s [-s insep] [-o outsep] [filters]\n", argv0);
+	fprintf(stderr, "%s [-i insep] [-o outsep] [filters]\n", argv0);
 	exit(1);
 }
 
@@ -28,7 +30,7 @@ int main(int argc, char** argv)
 	linelen=BUFSIZ;
 
 	ARGBEGIN {
-	case 's':
+	case 'i':
 		insep=EARGF(usage());
 		break;
 	case 'o':
@@ -54,7 +56,8 @@ int main(int argc, char** argv)
 	dirname=mkdtemp(dirname);
 	if(!dirname)
 	{
-		fprintf(stderr, "%s: error: could not create temporary directory, exiting.\n", argv0);
+		fprintf(stderr, "%s: error: could not create temporary directory, exiting.\n",
+			argv0);
 		exit(3);
 	}
 
@@ -69,8 +72,44 @@ int main(int argc, char** argv)
 		sprintf(ofnames[i], "%s/%s%d", dirname, outprefix, i);
 		if(mkfifo(ifnames[i], 0600)<0||mkfifo(ofnames[i], 0600)<0)
 		{
-			fprintf(stderr, "%s: error: could not create FIFO in %s, exiting.\n", argv0, dirname);
+			fprintf(stderr, "%s: error: could not create FIFO in %s, exiting.\n",
+				argv0, dirname);
 			exit(4);
+		}
+	}
+
+	/* start the filters supplied in argv */
+
+	for(i=0; i<argc+1; i++)
+	{
+		/* components: length of comm without %s + in + comm + out + null */
+		expectedlen=(strlen(commfmt)-6)+strlen(ifnames[i])+
+			     strlen(i==argc?defaultcomm:argv[i])+strlen(ofnames[i])+1;
+		if(expectedlen>shcommlen)
+		{
+			shcommlen=expectedlen;
+			shcomm=realloc(shcomm, expectedlen*sizeof(char));
+			if(!shcomm)
+			{
+				fprintf(stderr, "%s: error: could not reallocate memory, exiting.\n",
+					argv0);
+				exit(2);
+			}
+		}
+		snprintf(shcomm, expectedlen, commfmt, ifnames[i],
+			 i==argc?defaultcomm:argv[i], ofnames[i]);
+
+		switch(fork())
+		{
+		case 0:
+			execl(shellpath, shellname, shellflag, shcomm, (char *) 0);
+			break;
+		case -1:
+			fprintf(stderr, "%s: error: could not fork, exiting.\n", argv0);
+			exit(5);
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -96,34 +135,41 @@ int main(int argc, char** argv)
 	}
 	*s++='\0';
 
-	/* create the command for pasting from the joined output fifo names */
+	/* start command for pasting from the joined output fifo names */
 
 	/* explicit is better than implicit */
 	/* components: length of pastefmt without %s + outsep + jolen - jolen null + null */
 	pastelen=(strlen(pastefmt)-4)+strlen(outsep)+jolen-1+1;
 	pastecomm=calloc(pastelen, sizeof(char));
-	snprintf(pastecomm, pastelen, pastefmt, outsep, jonames);
-	printf("pastecomm: \"%s\"\n", pastecomm);
 
-	for(i=0; i<argc+1; i++)
+	snprintf(pastecomm, pastelen, pastefmt, outsep, jonames);
+
+	switch(fork())
 	{
-		/* components: length of comm without %s + in + comm + out + null */
-		expectedlen=(strlen(commfmt)-6)+strlen(ifnames[i])+strlen(i==argc?defaultcomm:argv[i])+
-			    strlen(ofnames[i])+1;
-		if(expectedlen>shcommlen)
-		{
-			shcommlen=expectedlen;
-			shcomm=realloc(shcomm, expectedlen*sizeof(char));
-			if(!shcomm)
-			{
-				fprintf(stderr, "%s: error: could not reallocate memory, exiting.\n", argv0);
-				exit(2);
-			}
-		}
-		snprintf(shcomm, expectedlen, commfmt, ifnames[i], i==argc?defaultcomm:argv[i], ofnames[i]);
-		/* system(shcomm); */
-		printf("shcomm: \"%s\"\n", shcomm);
+	case 0:
+		execl(shellpath, shellname, shellflag, pastecomm, (char *) 0);
+		break;
+	case -1:
+		fprintf(stderr, "%s: error: could not fork, exiting.\n", argv0);
+		exit(5);
+		break;
+	default:
+		break;
 	}
+
+	/* open the FIFOs */
+
+	for(i=0; i<(argc+1); i++)
+	{
+		infifos[i]=fopen(ifnames[i], "w");
+		if(!infifos[i])
+		{
+			fprintf(stderr, "%s: error: could not open FIFO %s, exiting.\n", argv0, ifnames[i]);
+			exit(6);
+		}
+	}
+
+	/* split up the line and write it into the input FIFOs */
 
 	while((rlen=getline(&line, &linelen, stdin))!=-1)
 	{
@@ -135,20 +181,30 @@ int main(int argc, char** argv)
 			t=strstr(s, insep);
 			if(!t)
 			{
-				fwrite(s, sizeof(char), rlen-(s-line), stdout);
+				fwrite(s, sizeof(char), rlen-(s-line), infifos[i]);
 				s=line+rlen;
 			}
 			else
 			{
-				fwrite(s, sizeof(char), t-s, stdout);
+				fwrite(s, sizeof(char), t-s, infifos[i]);
 				s=t+strlen(insep);
 			}
-			fputc('\n', stdout);
+			fputc('\n', infifos[i]);
 		}
-		fwrite(s, sizeof(char), rlen-(s-line), stdout);
-		fputc('\n', stdout);
+		fwrite(s, sizeof(char), rlen-(s-line), infifos[i]);
+		fputc('\n', infifos[i]);
 		line[0]='\0';
 	}
+
+	for(i=0; i<(argc+1); i++)
+		fclose(infifos[i]);
+
+	/* wait for children to terminate */
+
+	for(i=0; i<(argc+1); i++)
+		wait(NULL);
+
+	/* clean up */
 
 	remove(dirname);
 

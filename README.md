@@ -18,7 +18,7 @@ Examples
 
 Emulate `du -h`:
 
-	du -b | treat numfmt
+	du -b | treat human
 
 Emulate `du -abh | sort -h`, but sorted:
 
@@ -42,8 +42,9 @@ for deinstallation.
 Requirements
 ------------
 
-* [lua](http://www.lua.org)
-* the plan9 shell [rc](http://git.suckless.org/9base)
+* A make implementation
+* A C compiler
+* A POSIX system, needed for execl(), fork(), getline(), mkdtemp(), mkfifo() and wait()
 
 License
 =======

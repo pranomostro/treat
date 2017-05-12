@@ -21,6 +21,12 @@ static const char* outprefix="out.";
 
 static const char* defaultcomm="cat";
 
+/* The shell used for executing the filters given as arguments */
+
+static const char* shellpath="/bin/sh";
+static const char* shellname="sh";
+static const char* shellflag="-c";
+
 /*
 	The command used for pasting the output from the FIFOs together.
 	The first %s is replaced by outsep, the second %s is replaced
@@ -38,4 +44,4 @@ static const char* pastefmt="paste -d '%s' %s";
 	capable of commands beginning with redirections.
 */
 
-static const char* commfmt="<%s %s >%s &";
+static const char* commfmt="<%s %s >%s";
