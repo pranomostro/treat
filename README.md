@@ -22,7 +22,7 @@ Emulate `du -h`:
 
 Emulate `du -abh | sort -h`:
 
-	du -ab | sort -n | treat human
+	du -ab | sort -n | tr '\t' ' ' | treat human
 
 Run calculations submitted by users from a colon-separated file.
 
