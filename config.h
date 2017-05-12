@@ -31,7 +31,6 @@ static const char* shellflag="-c";
 	The command used for pasting the output from the FIFOs together.
 	The first %s is replaced by outsep, the second %s is replaced
 	by a list of all output FIFOs joined with " ".
-	TODO: remove, fork off treat instead, which then pastes.
 */
 
 static const char* pastefmt="paste -d '%s' %s";

@@ -17,6 +17,52 @@ static void usage(void)
 	exit(1);
 }
 
+static void paste(size_t numfiles, char** ofnames)
+{
+	size_t i, fieldlen;
+	ssize_t rlen;
+	char* field;
+	FILE** outfifos;
+
+	fieldlen=BUFSIZ;
+	field=calloc(fieldlen, sizeof(char));
+	outfifos=calloc(numfiles, sizeof(FILE*));
+
+	for(i=0; i<numfiles; i++)
+	{
+		outfifos[i]=fopen(ofnames[i], "r");
+		if(!outfifos[i])
+		{
+			fprintf(stderr, "%s: error: could not open FIFO %s, exiting.\n",
+				argv0, ofnames[i]);
+			exit(6);
+		}
+	}
+
+	while(1)
+	{
+		for(i=0; i<numfiles; i++)
+		{
+			if((rlen=getline(&field, &fieldlen, outfifos[i]))<0)
+				goto end;
+			if(field[rlen-1]=='\n')
+				field[rlen-1]='\0';
+
+			fwrite(field, sizeof(char), rlen, stdout);
+			if(i<numfiles-1)
+				fwrite(outsep, sizeof(char), strlen(outsep), stdout);
+		}
+		fputc('\n', stdout);
+	}
+
+end:
+	for(i=0; i<numfiles; i++)
+		fclose(outfifos[i]);
+
+	free(field);
+	free(outfifos);
+}
+
 int main(int argc, char** argv)
 {
 	int i;
@@ -46,6 +92,7 @@ int main(int argc, char** argv)
 	ifnames=calloc(argc+1, sizeof(char*));
 	ofnames=calloc(argc+1, sizeof(char*));
 	infifos=calloc(argc+1, sizeof(FILE*));
+
 	if(!dirname||!ifnames||!ofnames||!infifos||!shcomm)
 	{
 		fprintf(stderr, "%s: error: could not allocate memory, exiting.\n", argv0);
@@ -54,6 +101,7 @@ int main(int argc, char** argv)
 
 	strncpy(dirname, template, strlen(template)+1);
 	dirname=mkdtemp(dirname);
+
 	if(!dirname)
 	{
 		fprintf(stderr, "%s: error: could not create temporary directory, exiting.\n",
@@ -103,6 +151,7 @@ int main(int argc, char** argv)
 		{
 		case 0:
 			execl(shellpath, shellname, shellflag, shcomm, (char *) 0);
+			exit(0);
 			break;
 		case -1:
 			fprintf(stderr, "%s: error: could not fork, exiting.\n", argv0);
@@ -119,6 +168,7 @@ int main(int argc, char** argv)
 		jolen+=strlen(ofnames[i])+1; /* outname + " " */
 
 	jonames=calloc(jolen, sizeof(char));
+
 	if(!jonames)
 	{
 		fprintf(stderr, "%s: error: could not allocate memory, exiting.\n", argv0);
@@ -126,6 +176,7 @@ int main(int argc, char** argv)
 	}
 
 	s=jonames;
+
 	for(i=0; i<(argc+1); i++)
 	{
 		strncpy(s, ofnames[i], strlen(ofnames[i]));
@@ -133,21 +184,23 @@ int main(int argc, char** argv)
 		if(i<argc)
 			*s++=' ';
 	}
+
 	*s++='\0';
 
 	/* start command for pasting from the joined output fifo names */
 
 	/* explicit is better than implicit */
 	/* components: length of pastefmt without %s + outsep + jolen - jolen null + null */
+
 	pastelen=(strlen(pastefmt)-4)+strlen(outsep)+jolen-1+1;
 	pastecomm=calloc(pastelen, sizeof(char));
-
 	snprintf(pastecomm, pastelen, pastefmt, outsep, jonames);
 
 	switch(fork())
 	{
 	case 0:
-		execl(shellpath, shellname, shellflag, pastecomm, (char *) 0);
+		paste(argc+1, ofnames);
+		exit(0);
 		break;
 	case -1:
 		fprintf(stderr, "%s: error: could not fork, exiting.\n", argv0);
@@ -164,7 +217,8 @@ int main(int argc, char** argv)
 		infifos[i]=fopen(ifnames[i], "w");
 		if(!infifos[i])
 		{
-			fprintf(stderr, "%s: error: could not open FIFO %s, exiting.\n", argv0, ifnames[i]);
+			fprintf(stderr, "%s: error: could not open FIFO %s, exiting.\n",
+				argv0, ifnames[i]);
 			exit(6);
 		}
 	}

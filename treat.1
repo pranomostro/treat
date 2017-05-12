@@ -44,7 +44,7 @@ Emulate cat:
 .Pp
 Print human readable sizes of the different files in the directory tree:
 .Pp
-.Dl $ du -ab | treat human 'xargs basename -a'
+.Dl $ du -ab | treat -i '	' human 'xargs basename -a'
 .Pp
 Execute sed on only one field:
 .Pp
