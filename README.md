@@ -16,17 +16,13 @@ specified, cat is used for the rest of the line.
 Examples
 ---------
 
-Emulate `du -h`:
-
-	du -b | treat human
-
-Emulate `du -abh | sort -h`:
-
-	du -ab | sort -n | tr '\t' ' ' | treat human
-
 Run calculations submitted by users from a colon-separated file.
 
 	treat -i : cat 'bc -l' <calcs
+
+Factor the second input field, reverse the first:
+
+	treat rev factor
 
 Installation
 -------------
