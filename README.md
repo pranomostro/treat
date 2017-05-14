@@ -48,4 +48,4 @@ License
 The [MIT/X11 license](./LICENSE). The incarcerate() function (previously
 unescape()) was taken from
 [sbase libutil/unescape.c](http://git.suckless.org/sbase/tree/libutil/unescape.c).
-For more, see [SBASELICENSE](./SBASELICENSE).
+For more, see [SBLICENSE](./SBLICENSE).
