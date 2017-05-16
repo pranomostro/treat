@@ -14,6 +14,10 @@
 
 char* argv0;
 
+static void usage(void);
+size_t incarcerate(char* s);
+void paste(size_t numfiles, char** ofnames);
+
 static void usage(void)
 {
 	fprintf(stderr, "%s [-i insep] [-o outsep] [filters]\n", argv0);
