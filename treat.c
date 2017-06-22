@@ -277,6 +277,7 @@ int main(int argc, char** argv)
 	for(i=0; i<(argc+1); i++)
 	{
 		infifos[i]=fopen(ifnames[i], "w");
+		setbuf(infifos[i], NULL); /* if this is not done, treat sometimes hangs */
 		if(!infifos[i])
 		{
 			fprintf(stderr, "%s: error: could not open FIFO %s, exiting.\n",
