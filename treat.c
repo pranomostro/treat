@@ -108,7 +108,7 @@ void paste(size_t numfiles, char** ofnames)
 			if(field[rlen-1]=='\n')
 				field[rlen-1]='\0';
 
-			fwrite(field, sizeof(char), rlen, stdout);
+			fwrite(field, sizeof(char), rlen-1, stdout);
 			if(i<numfiles-1)
 				fwrite(outsep, sizeof(char), strlen(outsep), stdout);
 		}
