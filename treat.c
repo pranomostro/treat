@@ -126,9 +126,9 @@ end:
 int main(int argc, char** argv)
 {
 	int i;
-	size_t shcommlen, expectedlen, jolen, pastelen, linelen;
+	size_t shcommlen, expectedlen, linelen;
 	ssize_t rlen;
-	char* dirname, * shcomm, * pastecomm, * jonames, * s, * t, * line;
+	char* dirname, * shcomm, * s, * t, * line;
 	char** ifnames, ** ofnames;
 	FILE** infifos;
 
@@ -224,40 +224,6 @@ int main(int argc, char** argv)
 		}
 	}
 
-	/* join together the output fifo names */
-
-	for(i=0, jolen=0; i<(argc+1); i++)
-		jolen+=strlen(ofnames[i])+1; /* outname + " " */
-
-	jonames=calloc(jolen, sizeof(char));
-
-	if(!jonames)
-	{
-		fprintf(stderr, "%s: error: could not allocate memory, exiting.\n", argv0);
-		exit(2);
-	}
-
-	s=jonames;
-
-	for(i=0; i<(argc+1); i++)
-	{
-		strncpy(s, ofnames[i], strlen(ofnames[i]));
-		s+=strlen(ofnames[i]);
-		if(i<argc)
-			*s++=' ';
-	}
-
-	*s++='\0';
-
-	/* start command for pasting from the joined output fifo names */
-
-	/* explicit is better than implicit */
-	/* components: length of pastefmt without %s + outsep + jolen - jolen null + null */
-
-	pastelen=(strlen(pastefmt)-4)+strlen(outsep)+jolen-1+1;
-	pastecomm=calloc(pastelen, sizeof(char));
-	snprintf(pastecomm, pastelen, pastefmt, outsep, jonames);
-
 	switch(fork())
 	{
 	case 0:
@@ -333,8 +299,6 @@ int main(int argc, char** argv)
 		free(ofnames[i]);
 	}
 	free(line);
-	free(jonames);
-	free(pastecomm);
 	free(shcomm);
 	free(ifnames);
 	free(ofnames);

@@ -28,14 +28,6 @@ static const char* shellname="sh";
 static const char* shellflag="-c";
 
 /*
-	The command used for pasting the output from the FIFOs together.
-	The first %s is replaced by outsep, the second %s is replaced
-	by a list of all output FIFOs joined with " ".
-*/
-
-static const char* pastefmt="paste -d '%s' %s";
-
-/*
 	The structure of a command:
 	The first %s represents the input FIFO, the second %s represents
 	the command passed as a command line argument, and the third
