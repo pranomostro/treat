@@ -289,8 +289,6 @@ int main(int argc, char** argv)
 
 	/* clean up */
 
-	remove(dirname);
-
 	for(i=0; i<(argc+1); i++)
 	{
 		remove(ifnames[i]);
