@@ -284,7 +284,7 @@ int main(int argc, char** argv)
 
 	/* wait for children to terminate */
 
-	for(i=0; i<(argc+1); i++)
+	for(i=0; i<(argc+2); i++)
 		wait(NULL);
 
 	/* clean up */
