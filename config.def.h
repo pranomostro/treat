@@ -36,3 +36,5 @@ static const char* shellflag="-c";
 */
 
 static const char* commfmt="<%s %s >%s";
+
+void* reallocarray(void* optr, size_t nmemn, size_t size);

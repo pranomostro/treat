@@ -6,6 +6,6 @@ CFLAGS=-D_POSIX_C_SOURCE=200809L -D_DEFAULT_SOURCE -Wall -Wextra -std=c99 -pedan
 LDFLAGS=-s
 
 BIN=treat
-OBJ=$(BIN:=.o)
+OBJ=$(BIN:=.o) reallocarray.o
 MAN=$(BIN:=.1)
 CONF=config.mk config.h

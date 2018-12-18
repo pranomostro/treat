@@ -198,7 +198,7 @@ int main(int argc, char** argv)
 		if(expectedlen>shcommlen)
 		{
 			shcommlen=expectedlen;
-			shcomm=realloc(shcomm, expectedlen*sizeof(char));
+			shcomm=(char*)reallocarray(shcomm, expectedlen, sizeof(char));
 			if(!shcomm)
 			{
 				fprintf(stderr, "%s: error: could not reallocate memory, exiting.\n",
