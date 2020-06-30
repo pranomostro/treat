@@ -51,7 +51,7 @@ Execute sed on only one field:
 .Dl $ printf 'a b\enc d\eng flbb xq' | treat -o ' ' \(dqsed 's/$/e/'\(dq | tr '\en' '|'
 .Dl ae b|ce d|nge flbb xq|
 .Pp
-Emulate df (without the header line):
+Emulate df -h (without the header line):
 .Pp
 .Dl $ df | sed 1d | tr -s ' ' | awk '{ print($1, $2*1024, $3*1024, $4*1024, $5, $6) }' | treat cat human human human | column -t
 
